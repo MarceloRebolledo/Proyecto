@@ -14,7 +14,7 @@ public class CRUDFirebase {
     private static final String nombreColeccionIngredientes = "Ingredientes";
     private static final String nombreColeccionRecetas = "Recetas";
 
-    private static Firestore db = null;
+    static Firestore db = null;
 
     public CRUDFirebase() {
         ConexionFirebase conexionFirebase = new ConexionFirebase();
@@ -137,7 +137,7 @@ public class CRUDFirebase {
                         document.get("nombre").toString(),
                         document.get("descripcion").toString(),
                         document.get("instrucciones").toString()
-                        );
+                );
 
 
 
@@ -261,5 +261,4 @@ public class CRUDFirebase {
         return flag;
 
     }
-
 }
