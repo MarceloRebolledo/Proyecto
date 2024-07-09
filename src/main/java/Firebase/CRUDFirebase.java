@@ -14,7 +14,6 @@ public class CRUDFirebase {
     private static final String nombreColeccionIngredientes = "Ingredientes";
     private static final String nombreColeccionRecetas = "Recetas";
 
-    static Firestore db = null;
 
     public CRUDFirebase() {
         ConexionFirebase conexionFirebase = new ConexionFirebase();
