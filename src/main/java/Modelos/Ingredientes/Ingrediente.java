@@ -2,7 +2,7 @@ package Modelos.Ingredientes;
 
 import java.util.Objects;
 
-public abstract class Ingrediente {
+public class Ingrediente {
     private String nombre;
     private String descripcion;
     private String medida;
@@ -16,6 +16,9 @@ public abstract class Ingrediente {
         this.nombre = nombre.toLowerCase();
         this.descripcion = descripcion.toLowerCase();
         this.medida = medida.toLowerCase();
+    }
+
+    public Ingrediente(String nombre, String tipo) {
     }
 
     public String getNombre() {

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Recetario implements Preparables {
 
-    private CRUDFirebase db = new CRUDFirebase();
+    public CRUDFirebase db = new CRUDFirebase();
 
     private ArrayList<Ingrediente> ingredientesDisponibles;
     private ArrayList<Ingrediente> ingredientesRegistrados;
