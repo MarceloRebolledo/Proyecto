@@ -3,6 +3,7 @@ package Modelos.Recetas;
 import Modelos.Ingredientes.Ingrediente;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Receta {
     private String nombre;
@@ -19,6 +20,9 @@ public class Receta {
         this.descripcion = descripcion.toLowerCase();
         this.instrucciones = instrucciones.toLowerCase();
         this.ingredientes = new ArrayList<>();
+    }
+
+    public <T> Receta(String tarta, List<T> list) {
     }
 
     public void agregarIngrediente(Ingrediente ingrediente) {
