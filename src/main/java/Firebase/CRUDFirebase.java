@@ -14,7 +14,7 @@ public class CRUDFirebase {
     private static final String nombreColeccionIngredientes = "Ingredientes";
     private static final String nombreColeccionRecetas = "Recetas";
 
-    private static Firestore db = null;
+    static Firestore db = null;
 
     public CRUDFirebase() {
         ConexionFirebase conexionFirebase = new ConexionFirebase();
@@ -50,9 +50,7 @@ public class CRUDFirebase {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-
         return flag;
-
     }
 
     public boolean addFirebase(Receta receta) {
@@ -82,9 +80,7 @@ public class CRUDFirebase {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-
         return flag;
-
     }
 
     public boolean obtenerFirebaseIngredientes(ArrayList<Ingrediente> ingredientes) {
@@ -97,7 +93,6 @@ public class CRUDFirebase {
             documents = future.get().getDocuments();
 
             for (QueryDocumentSnapshot document : documents) {
-
                 if(Objects.equals(document.get("tipo"), "Carne")) {
                     ingredientes.add(document.toObject(Carne.class));
                 } else if (Objects.equals(document.get("tipo"), "Liquido")) {
@@ -114,9 +109,7 @@ public class CRUDFirebase {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-
         return flag;
-
     }
 
     public boolean obtenerFirebaseRecetas(ArrayList<Receta> recetas) {
@@ -128,75 +121,45 @@ public class CRUDFirebase {
         List<QueryDocumentSnapshot> documents;
 
         try {
-
             documents = future.get().getDocuments();
-
             for (QueryDocumentSnapshot document : documents) {
-
                 Receta receta = new Receta(
                         document.get("nombre").toString(),
                         document.get("descripcion").toString(),
                         document.get("instrucciones").toString()
-                        );
-
-
+                );
 
                 List<Map<String, Object>> ingredienteMaps = (List<Map<String, Object>>) document.get("ingredientes");
 
                 for (Map<String, Object> ingredienteMap : ingredienteMaps) {
-
                     ObjectMapper objectMapper = new ObjectMapper();
-
                     if (ingredienteMap.get("tipo").equals("Carne")) {
-
                         Ingrediente ingrediente = objectMapper.convertValue(ingredienteMap, Carne.class);
-
                         receta.agregarIngrediente(ingrediente);
                     }
-
                     else if (ingredienteMap.get("tipo").equals("Liquido")) {
-
                         Ingrediente ingrediente = objectMapper.convertValue(ingredienteMap, Liquido.class);
-
                         receta.agregarIngrediente(ingrediente);
-
                     } else if (ingredienteMap.get("tipo").equals("Verdura")) {
-
                         Ingrediente ingrediente = objectMapper.convertValue(ingredienteMap, Verdura.class);
-
                         receta.agregarIngrediente(ingrediente);
-
                     } else if (ingredienteMap.get("tipo").equals("Masa")) {
-
                         Ingrediente ingrediente = objectMapper.convertValue(ingredienteMap, Masa.class);
-
                         receta.agregarIngrediente(ingrediente);
-
                     } else if (ingredienteMap.get("tipo").equals("Fruta")) {
-
                         Ingrediente ingrediente = objectMapper.convertValue(ingredienteMap, Fruta.class);
-
                         receta.agregarIngrediente(ingrediente);
-
                     }
-
                 }
-
                 recetas.add(receta);
-
             }
-
             flag = true;
 
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-
         return flag;
-
     }
-
-
 
     public boolean delFirebase(Ingrediente ingrediente) {
 
@@ -225,9 +188,7 @@ public class CRUDFirebase {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-
         return flag;
-
     }
 
     public boolean delFirebase(Receta receta) {
@@ -250,16 +211,12 @@ public class CRUDFirebase {
         ApiFuture<WriteResult> future = db.collection(nombreColeccionRecetas)
                 .document(receta.getNombre())
                 .delete();
-
         try {
             System.out.println("Delete time : " + future.get().getUpdateTime());
             flag = true;
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-
         return flag;
-
     }
-
 }

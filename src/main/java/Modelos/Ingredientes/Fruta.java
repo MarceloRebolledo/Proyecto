@@ -1,5 +1,7 @@
 package Modelos.Ingredientes;
 
+import java.util.Objects;
+
 public class Fruta extends Ingrediente{
     private String color;
     private boolean citrica;
@@ -29,6 +31,20 @@ public class Fruta extends Ingrediente{
 
     public void setCitrica(boolean citrica) {
         this.citrica = citrica;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Fruta fruta = (Fruta) o;
+        return citrica == fruta.citrica && Objects.equals(color, fruta.color);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), color, citrica);
     }
 
     @Override

@@ -35,27 +35,22 @@ public class MostrarRecetasPreparablesFrame extends JFrame {
             modeloRecetasPreparables.addElement(receta.getNombre());
         }
 
-        // Crear JList y JScrollPane para mostrar las recetas preparables
         listaRecetasPreparables = new JList<>(modeloRecetasPreparables);
         JScrollPane scrollRecetasPreparables = new JScrollPane(listaRecetasPreparables);
 
-        // Panel para contener la lista y el boton
         JPanel panel = new JPanel(new BorderLayout());
 
-        // Agregar la lista al panel
         panel.add(scrollRecetasPreparables, BorderLayout.CENTER);
 
-        // Boton para ver detalles de la receta seleccionada
-        JButton botonVerDetalles = new JButton("Ver Detalles");
+        // Boton detalles de la receta seleccionada
+        JButton botonVerDetalles = new JButton("Ver Receta");
         botonVerDetalles.addActionListener(e ->
                 verDetallesRecetaSeleccionada()
         );
         panel.add(botonVerDetalles, BorderLayout.SOUTH);
 
-        // Agregar el panel al frame
         add(panel);
 
-        // Hacer visible el frame
         setVisible(true);
     }
 

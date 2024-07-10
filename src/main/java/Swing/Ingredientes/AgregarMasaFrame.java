@@ -16,28 +16,24 @@ public class AgregarMasaFrame extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        // Campo para nombre
         panel.add(new JLabel("Nombre:"));
         JTextField nombreField = new JTextField();
         panel.add(nombreField);
 
-        // Campo para descripción
         panel.add(new JLabel("Descripcion:"));
         JTextField descripcionField = new JTextField();
         panel.add(descripcionField);
 
-        // Campo para medida
         panel.add(new JLabel("Medida:"));
         String[] medidas = {"g", "kg", "unidad"};
         JComboBox<String> medidaComboBox = new JComboBox<>(medidas);
         panel.add(medidaComboBox);
 
-        // Checkbox para integral
+        // Checkbox integral
         panel.add(new JLabel("Integral:"));
         JCheckBox integralCheckBox = new JCheckBox();
         panel.add(integralCheckBox);
 
-        // Campo para tipo de masa
         panel.add(new JLabel("Tipo de Masa:"));
         JTextField tipoMasaField = new JTextField();
         panel.add(tipoMasaField);

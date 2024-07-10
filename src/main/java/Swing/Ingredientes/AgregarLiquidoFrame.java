@@ -16,28 +16,24 @@ public class AgregarLiquidoFrame extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        // Campo para nombre
         panel.add(new JLabel("Nombre:"));
         JTextField nombreField = new JTextField();
         panel.add(nombreField);
 
-        // Campo para descripción
         panel.add(new JLabel("Descripción:"));
         JTextField descripcionField = new JTextField();
         panel.add(descripcionField);
 
-        // Campo para medida
         panel.add(new JLabel("Medida:"));
         String[] medidas = {"ml", "li"};
         JComboBox<String> medidaComboBox = new JComboBox<>(medidas);
         panel.add(medidaComboBox);
 
-        // Checkbox para alcohólico
+        // Checkbox alcoholico
         panel.add(new JLabel("Alcoholico:"));
         JCheckBox alcoholicoCheckBox = new JCheckBox();
         panel.add(alcoholicoCheckBox);
 
-        // Campo para procedencia
         panel.add(new JLabel("Procedencia:"));
         JTextField procedenciaField = new JTextField();
         panel.add(procedenciaField);

@@ -16,23 +16,19 @@ public class AgregarVerduraFrame extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        // Campo para nombre
         panel.add(new JLabel("Nombre:"));
         JTextField nombreField = new JTextField();
         panel.add(nombreField);
 
-        // Campo para descripción
         panel.add(new JLabel("Descripcion:"));
         JTextField descripcionField = new JTextField();
         panel.add(descripcionField);
 
-        // Campo para medida
         panel.add(new JLabel("Medida:"));
         String[] medidas = {"g", "kg", "unidad"};
         JComboBox<String> medidaComboBox = new JComboBox<>(medidas);
         panel.add(medidaComboBox);
 
-        // Campo para tipo de verdura
         panel.add(new JLabel("Tipo de Verdura:"));
         JTextField tipoVerduraField = new JTextField();
         panel.add(tipoVerduraField);
@@ -67,7 +63,6 @@ public class AgregarVerduraFrame extends JFrame {
                 dispose();
             }
         });
-
         setVisible(true);
     }
 }

@@ -3,6 +3,7 @@ package Modelos.Recetas;
 import Modelos.Ingredientes.Ingrediente;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Receta {
     private String nombre;
@@ -39,6 +40,19 @@ public class Receta {
 
     public ArrayList<Ingrediente> getIngredientes() {
         return ingredientes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Receta receta = (Receta) o;
+        return Objects.equals(nombre, receta.nombre) && Objects.equals(descripcion, receta.descripcion) && Objects.equals(instrucciones, receta.instrucciones) && Objects.equals(ingredientes, receta.ingredientes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, descripcion, instrucciones, ingredientes);
     }
 
     @Override

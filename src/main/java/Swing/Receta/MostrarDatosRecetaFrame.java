@@ -13,32 +13,29 @@ public class MostrarDatosRecetaFrame extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Panel principal con BoxLayout vertical
+        // Panel principal
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        // JTextArea para el nombre
         JTextArea nombreTextArea = new JTextArea();
         nombreTextArea.setEditable(false);
         nombreTextArea.setLineWrap(true);
         nombreTextArea.setWrapStyleWord(true);
         nombreTextArea.setText(receta.getNombre());
 
-        // JTextArea para la descripción
         JTextArea descripcionTextArea = new JTextArea();
         descripcionTextArea.setEditable(false);
         descripcionTextArea.setLineWrap(true);
         descripcionTextArea.setWrapStyleWord(true);
         descripcionTextArea.setText(receta.getDescripcion());
 
-        // JTextArea para las instrucciones
         JTextArea instruccionesTextArea = new JTextArea();
         instruccionesTextArea.setEditable(false);
         instruccionesTextArea.setLineWrap(true);
         instruccionesTextArea.setWrapStyleWord(true);
         instruccionesTextArea.setText(receta.getInstrucciones());
 
-        // Panel para los detalles usando BoxLayout vertical
+        // Panel detalles
         JPanel detallesPanel = new JPanel();
         detallesPanel.setLayout(new BoxLayout(detallesPanel, BoxLayout.Y_AXIS));
         detallesPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -49,7 +46,7 @@ public class MostrarDatosRecetaFrame extends JFrame {
         detallesPanel.add(new JLabel("Instrucciones:"));
         detallesPanel.add(new JScrollPane(instruccionesTextArea));
 
-        // Panel para los ingredientes usando BoxLayout vertical
+        // Panel ingredientes
         JPanel ingredientesPanel = new JPanel();
         ingredientesPanel.setLayout(new BoxLayout(ingredientesPanel, BoxLayout.Y_AXIS));
         ingredientesPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -63,14 +60,11 @@ public class MostrarDatosRecetaFrame extends JFrame {
             ingredientesPanel.add(new JLabel(receta.getIngredientes().get(i).getNombre()));
         }
 
-        // Agregar componentes al panel principal
         panel.add(detallesPanel);
         panel.add(ingredientesPanel);
 
-        // Agregar panel principal al JFrame
         add(panel);
 
-        // Hacer visible el JFrame
         setVisible(true);
     }
 }

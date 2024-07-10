@@ -16,11 +16,10 @@ public class AgregarRecetaFrame extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Panel principal con BoxLayout vertical
+        // Panel principal
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        // Nombre de la receta
         panel.add(new JLabel("Nombre:"));
         JTextArea nombreTextArea = new JTextArea(1, 20);
         nombreTextArea.setLineWrap(true);
@@ -28,7 +27,6 @@ public class AgregarRecetaFrame extends JFrame {
         JScrollPane nombreScrollPane = new JScrollPane(nombreTextArea);
         panel.add(nombreScrollPane);
 
-        // Descripcion de la receta
         panel.add(new JLabel("Descripcion:"));
         JTextArea descripcionTextArea = new JTextArea(2, 20);
         descripcionTextArea.setLineWrap(true);
@@ -36,7 +34,6 @@ public class AgregarRecetaFrame extends JFrame {
         JScrollPane descripcionScrollPane = new JScrollPane(descripcionTextArea);
         panel.add(descripcionScrollPane);
 
-        // Instrucciones de la receta
         panel.add(new JLabel("Instrucciones:"));
         JTextArea instruccionesTextArea = new JTextArea(5, 20);
         instruccionesTextArea.setLineWrap(true);
@@ -44,7 +41,6 @@ public class AgregarRecetaFrame extends JFrame {
         JScrollPane instruccionesScrollPane = new JScrollPane(instruccionesTextArea);
         panel.add(instruccionesScrollPane);
 
-        // Ingredientes disponibles del recetario
         panel.add(new JLabel("Ingredientes Disponibles:"));
         DefaultListModel<String> ingredientesDisponiblesModel = new DefaultListModel<>();
         for (Ingrediente ingrediente : recetario.getIngredientesDisponibles()) {
@@ -54,25 +50,22 @@ public class AgregarRecetaFrame extends JFrame {
         JScrollPane ingredientesScrollPane = new JScrollPane(ingredientesDisponiblesList);
         panel.add(ingredientesScrollPane);
 
-        // Boton para guardar la receta
+        // Boton guardar receta
         JButton guardarButton = new JButton("Guardar");
         guardarButton.addActionListener(e -> {
             String nombre = nombreTextArea.getText().trim();
             String descripcion = descripcionTextArea.getText().trim();
             String instrucciones = instruccionesTextArea.getText().trim();
 
-            if (nombre.isEmpty() || descripcion.isEmpty() || instrucciones.isEmpty()) {
+            if (nombre.isEmpty() || descripcion.isEmpty() || instrucciones.isEmpty() || recetario.getIngredientesDisponibles().isEmpty()) {
                 JOptionPane.showMessageDialog(AgregarRecetaFrame.this, "Todos los Campos Deben Estar Completos.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             Receta nuevaReceta = new Receta(nombre, descripcion, instrucciones);
 
-            for (String ingredienteNombre : ingredientesDisponiblesList.getSelectedValuesList()) {
-                Ingrediente ingrediente = recetario.getIngredientePorNombre(ingredienteNombre);
-                if (ingrediente != null) {
-                    nuevaReceta.agregarIngrediente(ingrediente);
-                }
+            for (Ingrediente ingredienteDisponible:recetario.getIngredientesDisponibles()) {
+                nuevaReceta.agregarIngrediente(ingredienteDisponible);
             }
 
             recetario.agregarRecetaRegistro(nuevaReceta);

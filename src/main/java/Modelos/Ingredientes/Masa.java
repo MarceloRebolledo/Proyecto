@@ -1,5 +1,7 @@
 package Modelos.Ingredientes;
 
+import java.util.Objects;
+
 public class Masa extends Ingrediente{
 
     private boolean integral;
@@ -30,6 +32,20 @@ public class Masa extends Ingrediente{
 
     public void setTipoMasa(String tipoMasa) {
         this.tipoMasa = tipoMasa;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Masa masa = (Masa) o;
+        return integral == masa.integral && Objects.equals(tipoMasa, masa.tipoMasa);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), integral, tipoMasa);
     }
 
     @Override

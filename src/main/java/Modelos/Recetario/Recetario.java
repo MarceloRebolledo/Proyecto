@@ -6,10 +6,11 @@ import Modelos.Ingredientes.Ingrediente;
 import Modelos.Recetas.Receta;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Recetario implements Preparables {
 
-    private CRUDFirebase db = new CRUDFirebase();
+    public CRUDFirebase db = new CRUDFirebase();
 
     private ArrayList<Ingrediente> ingredientesDisponibles;
     private ArrayList<Ingrediente> ingredientesRegistrados;
@@ -45,30 +46,31 @@ public class Recetario implements Preparables {
             System.out.println("Registro actualizado");
             flag = true;
         } else {
-            System.out.println("No se a podido actualizar el registro");
+            System.out.println("No se pudo actualizar el registro");
         }
         return flag;
     }
 
     public Receta getRecetaPorNombre(String nombreRecetaBuscada) {
-        for (Receta receta : recetasRegistradas) {
-            if (receta.getNombre().equalsIgnoreCase(nombreRecetaBuscada)) {
-                return receta;
-            }
-        }
-        return null;
+        return recetasRegistradas.stream()
+                .filter(receta -> receta.getNombre().equalsIgnoreCase(nombreRecetaBuscada))
+                .findFirst()
+                .orElse(null);
     }
 
     public Ingrediente getIngredientePorNombre(String nombreIngredienteBuscado) {
-        for (Ingrediente ingrediente : ingredientesRegistrados) {
-            if (ingrediente.getNombre().equalsIgnoreCase(nombreIngredienteBuscado)) {
-                return ingrediente;
-            }
-        }
-        return null;
+
+        return ingredientesRegistrados.stream()
+                .filter(ingrediente -> ingrediente.getNombre().equalsIgnoreCase(nombreIngredienteBuscado))
+                .findFirst()
+                .orElse(null);
     }
 
-    public boolean eliminarIngrediente(Ingrediente ingrediente)    {
+
+
+
+
+    public boolean eliminarIngredienteRegistrado(Ingrediente ingrediente)    {
 
         flag = false;
 
@@ -86,7 +88,7 @@ public class Recetario implements Preparables {
         return flag;
     }
 
-    public boolean eliminarReceta(Receta recetaEliminar) {
+    public boolean eliminarRecetaRegistrada(Receta recetaEliminar) {
         flag = false;
 
         if (db.delFirebase(recetaEliminar) && actualizarRegistro()) {
@@ -116,48 +118,33 @@ public class Recetario implements Preparables {
 
     public boolean agregarIngredienteRegistro(Ingrediente ingrediente) {
         flag = false;
+
         if(db.addFirebase(ingrediente) && actualizarRegistro()){
             flag = true;
         } else {
             System.out.println("No se a podido agregar el ingrediente");
         }
+
         return flag;
     }
 
     public boolean agregarRecetaRegistro(Receta receta) {
         flag = false;
+
         if(db.addFirebase(receta) && actualizarRegistro()){
             flag = true;
         } else {
             System.out.println("No se a podido agregar la receta");
         }
+
         return flag;
     }
 
     @Override
     public ArrayList<Receta> preparables() {
-
-        ArrayList<Receta> recetasPreparables = new ArrayList<>();
-
-        for (Receta receta : recetasRegistradas) {
-
-            ArrayList<Ingrediente> ingredientesReceta = receta.getIngredientes();
-
-            boolean preparable = true;
-
-            for (Ingrediente ingrediente : ingredientesReceta) {
-                if (!ingredientesDisponibles.contains(ingrediente)) {
-                    preparable = false;
-                    break;
-                }
-            }
-
-            if (preparable) {
-                recetasPreparables.add(receta);
-            }
-        }
-
-        return recetasPreparables;
+        return recetasRegistradas.stream()
+                .filter(receta -> ingredientesDisponibles.containsAll(receta.getIngredientes()))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override
@@ -169,4 +156,3 @@ public class Recetario implements Preparables {
                 '}';
     }
 }
-

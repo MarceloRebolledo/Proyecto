@@ -13,7 +13,7 @@ public class MostrarDatosIngredienteFrame extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Panel principal con BorderLayout
+        // Panel principal
         JPanel panel = new JPanel(new BorderLayout());
 
         JPanel detallesPanel = new JPanel();
@@ -66,7 +66,6 @@ public class MostrarDatosIngredienteFrame extends JFrame {
                 detallesPanel.add(citricaLabel);
                 break;
         }
-
         panel.add(detallesPanel, BorderLayout.CENTER);
         add(panel);
         setVisible(true);
